@@ -645,9 +645,9 @@ canvas.dna{display:block;width:100%;pointer-events:none}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/d3-array@3.2.4/dist/d3-array.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/d3-geo@3.1.1/dist/d3-geo.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="assets/vendor/d3-array.min.js"></script>
+<script src="assets/vendor/d3-geo.min.js"></script>
+<script src="assets/vendor/topojson-client.min.js"></script>
 <script>
 /* ================= DATA ================= */
 const MIX=[
@@ -1035,7 +1035,7 @@ if(!reduce && matchMedia('(hover:hover)').matches && window.gsap){
   const box=$('#wmap'); if(!box||!window.d3||!window.topojson) return;
   const W=1000,H=500, still=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let land;
-  try{const t=await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-110m.json').then(r=>r.json());land=topojson.feature(t,t.objects.land)}catch(e){box.style.display='none';return}
+  try{const t=await fetch('assets/vendor/land-110m.json').then(r=>r.json());land=topojson.feature(t,t.objects.land)}catch(e){box.style.display='none';return}
   const proj=d3.geoNaturalEarth1().fitExtent([[10,10],[W-10,H-10]],{type:'Sphere'});
   // dotted land
   const off=document.createElement('canvas');off.width=W;off.height=H;const oc=off.getContext('2d');
