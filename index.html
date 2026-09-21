@@ -873,7 +873,7 @@ ScrollTrigger.create({trigger:'.globe',start:'top 75%',once:true,onEnter:()=>{co
 const mm=gsap.matchMedia();
 mm.add('(min-width:768px)',()=>{const track=$('#hscroll');
   const tw=gsap.to(track,{x:()=>-(track.scrollWidth-innerWidth),ease:'none',scrollTrigger:{trigger:'#disciplines',start:'top top',end:()=>'+='+(track.scrollWidth-innerWidth),pin:true,scrub:1,invalidateOnRefresh:true,anticipatePin:1}});
-  $$('#hscroll .dcard').forEach(c=>gsap.from(c.querySelector('.ic'),{rotate:-90,scale:0,ease:'back.out(2)',scrollTrigger:{trigger:c,containerAnimation:tw,start:'left 85%',toggleActions:'play none none reverse'}}));
+  gsap.from('#hscroll .dcard .ic',{rotate:-90,scale:0,duration:.8,stagger:.12,ease:'back.out(2)',scrollTrigger:{trigger:'#disciplines',start:'top 70%',once:true}});
 });
 mm.add('(max-width:767px)',()=>{$$('#hscroll .dcard').forEach(c=>gsap.from(c,{y:60,opacity:0,duration:1,ease:'expo.out',scrollTrigger:{trigger:c,start:'top 90%'}}))});
 
