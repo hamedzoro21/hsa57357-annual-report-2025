@@ -52,7 +52,8 @@ section{position:relative}
 nav.top{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(1240px,100% - 24px);z-index:50;display:flex;align-items:center;justify-content:space-between;padding:.55rem .6rem .55rem 1rem;border-radius:99px;background:rgba(255,255,255,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 30px -12px rgba(40,20,120,.25);transition:transform .5s var(--ease)}
 nav.top.hide{transform:translate(-50%,-140%)}
 nav .brand{display:flex;align-items:center;gap:.6rem;font-family:var(--font-d);font-weight:800;text-decoration:none}
-nav .brand img{height:48px;width:auto;margin:-6px 0}
+nav .brand img{height:50px;width:auto;margin:-4px 0}
+@media (max-width:640px){nav .brand img{height:42px}}
 nav ul{display:flex;gap:.2rem;list-style:none}
 nav ul a{display:block;padding:.5rem .85rem;border-radius:99px;font-weight:600;font-size:.88rem;text-decoration:none;transition:background .25s,color .25s}
 nav ul a:hover,nav ul a.on{background:var(--violet);color:#fff}
