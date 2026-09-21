@@ -68,6 +68,10 @@ nav ul a:hover,nav ul a.on{background:var(--violet);color:#fff}
 .hero{position:relative;min-height:100svh;padding:140px 0 70px;background:var(--cream);overflow:hidden}
 .hero{display:flex;align-items:center}
 .hero .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(40px,5vw,100px);align-items:center;width:min(1440px,100% - 48px)}
+.hero-bg{position:absolute;left:0;right:0;bottom:0;height:82%;pointer-events:none;z-index:0;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 40%);mask-image:linear-gradient(to bottom,transparent 0%,#000 40%)}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 100%;opacity:.24}
+.hero .grid{z-index:1}
+@media (max-width:900px){.hero-bg{height:55%}.hero-bg img{opacity:.22}}
 .hero .kicker{font-weight:600;color:var(--ink-2);letter-spacing:.02em}
 .hero .kicker b{color:var(--violet)}
 .hero .lead{max-width:44ch;font-size:clamp(1.1rem,1.35vw,1.45rem)}
@@ -380,6 +384,7 @@ canvas.dna{display:block;width:100%;pointer-events:none}
 
 <!-- ================= HERO ================= -->
 <header class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"><img src="assets/hospital-outline.webp" alt="" /></div>
   <svg class="squig" style="right:-6%;bottom:-8%;width:52%;height:62%" viewBox="0 0 800 500" aria-hidden="true">
     <path class="draw" d="M-20 420 C 120 300, 260 300, 300 380 S 420 480, 500 360 S 560 140, 700 180 S 820 300, 860 240" stroke="var(--yellow)" stroke-width="40" opacity=".85"/>
   </svg>
@@ -838,11 +843,13 @@ intro.from('#loadBoat',{x:()=>-innerWidth*.6,duration:1.1,ease:'power3.out'},0)
   .to('#loader .panel',{y:'0%',duration:.6,ease:'power4.inOut'},'-=.1')
   .to('#loader',{yPercent:-100,duration:.9,ease:'power4.inOut',onComplete:()=>{lenis&&lenis.start();$('#loader').remove();}})
   .from('#heroTitle .split-line>span',{yPercent:110,rotate:4,duration:1.1,stagger:.09,ease:'expo.out'},'-=.5')
+  .addLabel('hs','<')
   .from('.hero-in',{y:30,opacity:0,duration:.9,stagger:.1,ease:'power3.out'},'-=.8')
   .to('.hero path.draw',{strokeDashoffset:0,duration:1.6,ease:'power2.inOut',stagger:.2},'-=1')
   .from('.hero .ph',{scale:.6,opacity:0,duration:1.2,stagger:.15,ease:'expo.out'},'-=1.6')
   .from('.hero .chip, .hero .blob',{scale:0,opacity:0,duration:.9,stagger:.08,ease:'back.out(2)'},'-=.9')
-  .add(()=>$$('.hero .count').forEach(countUp),'-=.8');
+  .add(()=>$$('.hero .count').forEach(countUp),'-=.8')
+  .fromTo('.hero-bg',{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0% 0 0)',duration:2.4,ease:'power2.inOut'},'hs');
 
 function countUp(el){const to=+el.dataset.to,o={v:0};gsap.to(o,{v:to,duration:2,ease:'power3.out',onUpdate:()=>el.textContent=fmt(Math.round(o.v))+(el.dataset.suf||'')})}
 
@@ -852,6 +859,7 @@ addEventListener('pointermove',e=>{const x=e.clientX/innerWidth-.5,y=e.clientY/i
   $$('#collage [data-depth]').forEach(el=>gsap.to(el,{x:x*el.dataset.depth,y:y*el.dataset.depth,duration:1,ease:'power3.out'}))});
 // hero scroll out
 gsap.to('.hero .ph.a img',{scale:1.2,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.to('.hero-bg img',{yPercent:10,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
 gsap.to('#heroTitle',{yPercent:-20,opacity:.3,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
 
 // marquee
